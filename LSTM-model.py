@@ -8,8 +8,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 
 # Load Fantasy Premier League data
-# Replace 'your_dataset.csv' with the actual file containing your FPL data
-data = pd.read_csv('your_dataset.csv')
+# Replace 'your_dataset.csv' with the actual file containing the FPL data
+data = pd.read_csv('...')
 
 # Starting features
 feature_columns = ['player_id', 'gameweek', 'previous_points', 'minutes_played', 'goals_scored', 'assists']
