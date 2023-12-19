@@ -18,11 +18,14 @@ The model will be constructed to predict the score of a player on any given **GW
 
 The training data will be in the **Time Series Format**. This will be represented as a **Pandas DataFrame** with the **time values (dates)** representing the **keys (indices)** and the **columns** encompassing various **features** based on the desired complexity of the **ML architecture**. The default and minimally required feature will be the score of the player in question. The test data will simply be the score of the player in past GWs. Training data will be used to train a **neural network (NN)**, forward propagating feature information through hidden layers to make predictions. Test data will be used to determine the accuracy of the predictions, which will then be used to modify the internal parameters of the **NN** using back propagation. This will be repeated with all the available training data, going back to four seasons in the EPL.
 
-### Feature Engineering
-
+### Starting Model
 
 
 ## Data Acquisiton
+
+FPL Data has graciously been uploaded on Github by [Vaastav Aanand](https://github.com/vaastav) on his [Fantasy Premier League Repository](https://github.com/vaastav/Fantasy-Premier-League). Please follow him and support his work; he seems like a cool guy.
+
+The link above contains data as far back as the 2016-17 season, so we have plenty of training and testing data for the various models we employ. Of course due to the transfer market, there may be limited data available for certain players (read: Erling Haaland). There will be a script that downloads all data from the aforementioned repository to your local working directory.
 
 ## Model Features and Parameters
 
