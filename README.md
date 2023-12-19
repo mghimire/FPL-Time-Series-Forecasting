@@ -20,6 +20,21 @@ The training data will be in the **Time Series Format**. This will be represente
 
 ### Starting Model
 
+We will start by creating a rough predictive model based on the FPL scoring system. This will be based on the point rubric as well as a baseline understanding of the sport of football.
+
+At the **zeroth order**, we have the points players get for simply playing: 1 point for < 60 mins of play and 2 points otherwise. This can be calculated using a simple expectation value based on the probability that a player plays < 60 mins or otherwise, which should be **weighted with a recency bias (WWRB)**. Note that we will use recency bias for almost all the statistics we use because we expect more recent data to be more relevant than older data in determining trends.
+
+The best predicter of future success is past and present success. Therefore, at the **first order** we have the average performance of the player **WWRB**. This performance can be gleaned from game statistics such as goals, assists, saves, clean sheets, goals conceded, and yellow/red cards as relevant for particular player positions. Some of these statistics (goals, assists, yellow/red cards) should be converted into per-minute units and multiplied by the expected number of minutes played to estimate their contributions. Clean sheets, saves, and goals conceded are more dependent on opposition strength and team success (or lack thereof). The **zeroth** and **first order** contributions should be the minimal working parts of any model. Further improvements will increase accuracy but at an increasing computational cost.
+
+The **second order** contribution for a player should be team success. This is particularly relevant for defenders and goalkeepers, because clean sheets and goals conceded are team-wide statistics that impact all the defensive players' scores. Clean sheets impact goalkeepers, defenders, and midfielders, and they also contribute a different number of points to each position, so this impact is calculated based on general team performance **WWRB**. Sometimes teams go through exceptional spells of defensive cohesion or dreadful lulls, so the primary contributing factor here would be the team's defensive trends as to the number of goals conceded.
+
+The **third order** contribution for a player would be the particular opposing matchup. Some players struggle against particular teams or particular opposing players, and this should introduce a higher-order correction in predicting the player's success, but not as much as recent individual and team success.
+
+The **fourth order** contribution (arguably tied for third order) should be from the home or away status of games. This affects some players and teams more than others, and this factor should be gleaned from the difference in average statistics between home and away games per player per team.
+
+Finally, the **fifth order** contribution would be from the performances of teammates and opposing players in the particular games. Given the computational power, one could simulate the indvidual stats of all players involved in the game with particular weights based on some or all of the aforementioned ordered factors, and these could be used to calculate the rough number of game stats for the particular player in question. For example, if we are trying to predict the performance of a Liverpool midfielder when playing against Manchester United, we would take into account his teammates' propensity to score in order to correct the player's assist numbers, their propensity to assist in order to correct the player's goal numbers, and the opposition's propensity to score in order to correct the player's clean sheet prediction. This would be a smaller order correction than the aforementioned categories, but could be relevant in particular polarizing matchups.
+
+These predictive steps can be applied in a regressive manner with specified weights and biases for recency to reach a desired accuracy/consistecy, or in a **ML** context where all these contributions are given particular weights and biases that can be trained. We will talk more about this in the **Model Features and Parameters** section.
 
 ## Data Acquisiton
 
@@ -28,6 +43,10 @@ FPL Data has graciously been uploaded on Github by [Vaastav Aanand](https://gith
 The link above contains data as far back as the 2016-17 season, so we have plenty of training and testing data for the various models we employ. Of course due to the transfer market, there may be limited data available for certain players (read: Erling Haaland). There will be a script that downloads all data from the aforementioned repository to your local working directory.
 
 ## Model Features and Parameters
+
+### Feature Engineering
+
+### Choice of Layers
 
 ## Performance
 
